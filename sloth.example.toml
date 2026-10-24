@@ -1,0 +1,17 @@
+# sloth configuration (TOML). Copy to /etc/sloth/sloth.toml and adjust.
+site = "https://coremesh.online"
+# Caddy JSON access log; rotated files (.1, .2.gz) are read too
+log_glob = "/var/log/caddy/coremesh-access.log*"
+# a local sitemap.xml file or an https:// URL
+sitemap = "/var/lib/coremesh/current/sitemap.xml"
+# optional: the static site's files, used only to read page titles for better redirect matching
+site_root = "/var/lib/coremesh/current"
+out_dir = "/var/lib/sloth"
+ollama = "http://127.0.0.1:11434"
+chat_model = "gemma4:e2b"
+embed_model = "embeddinggemma"
+window_hours = 24
+# below this cosine similarity, a live page is not even shown to the chat model
+min_similarity = 0.45
+# page-like 404s judged per night; the rest wait for the next night
+max_404_paths = 25

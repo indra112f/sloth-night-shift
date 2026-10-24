@@ -1,0 +1,21 @@
+[Unit]
+Description=sloth night shift: open-weight models read yesterday's access log
+After=network-online.target ollama.service
+Wants=network-online.target ollama.service
+
+[Service]
+Type=oneshot
+DynamicUser=yes
+# read access to the web server's logs (directory is caddy:caddy 0750)
+SupplementaryGroups=caddy
+StateDirectory=sloth
+Environment=SLOTH_CONFIG=/etc/sloth/sloth.toml
+ExecStart=/usr/bin/python3 /opt/sloth/sloth.py
+# the website on this box always comes first
+Nice=19
+CPUQuota=100%
+MemoryMax=512M
+NoNewPrivileges=yes
+ProtectSystem=strict
+ProtectHome=yes
+PrivateTmp=yes

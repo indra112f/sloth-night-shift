@@ -1,0 +1,11 @@
+[Unit]
+Description=Run the sloth night shift once a day
+
+[Timer]
+# 22:30 UTC = 05:30 in Jakarta, so the brief is waiting before the owner wakes up
+OnCalendar=*-*-* 22:30:00 UTC
+Persistent=true
+RandomizedDelaySec=10m
+
+[Install]
+WantedBy=timers.target
