@@ -1,0 +1,19 @@
+# Suggested by sloth. Nothing here is applied automatically: review, then paste into your site block.
+redir /claude-code-skills/ /topics/claude-code/ permanent    # The requested page is about Claude Code skills, which is covered by the /topics/claude-code/ page.
+redir /openai-prompt-caching-pricing/ /prompts/improve-a-vague-prompt/ permanent    # The requested page is about pricing, while the suggested page is about improving prompts, which is the closest topic among the options.
+redir /ollama-launch-command/ /claude-code-slash-commands/ permanent    # The Claude Code Slash Commands Cheat Sheet is the most likely place for information related to launching commands.
+redir /responses-api-previous-response-id/ /view-transitions-api/ permanent    # The page about View Transitions API examples is the most relevant alternative.
+redir /claude-admin-api-webhooks/ /topics/claude-code/ permanent    # The requested endpoint relates to Claude code hooks, which is covered by the 'Claude Code guides' page.
+redir /openai-agents-api-ultrafast-mode/ /prompts/find-why-code-is-slow/ permanent    # The requested page is about an API, and the prompt page is about performance issues which is a related concept.
+redir /how-to-check-claude-code-usage/ /topics/claude-code/ permanent    # The page /topics/claude-code/ covers general guides related to Claude code usage.
+redir /github-search-api-rate-limit/ /claude-code-usage-limit-reset/ permanent    # The second page addresses a usage limit reset, which is closely related to a rate limit issue.
+redir /ai-agent-for-bug-bounty-hunting/ /prompts/fix-a-bug-from-an-error-message/ permanent    # The requested page is about fixing bugs from error messages, which matches the content of the second link.
+redir /claude-api-python/ /openai-api-python/ permanent    # The request was for a Claude API Python guide, and the OpenAI API Python guide is the most similar topic.
+redir /prewarm-openai-hosted-sandbox/ /openai-prompt-to-voice-api/ permanent    # The requested page is about prewarming an OpenAI-hosted sandbox, which is most closely related to the OpenAI Prompt-to-Voice API.
+redir /ollama-web-search-api/ /claude-compliance-api-user-preferences/ permanent    # The second page discusses an API, which is the likely context for a search API request.
+redir /claude-code-context-window-full/ /topics/claude-code/ permanent    # The requested topic is about Claude Code, which is covered by the 'Claude Code guides' page.
+redir /python-logging-examples/ /python-json-examples/ permanent    # The requested page is about Python logging examples, and the second page is about Python JSON examples, which is a related topic.
+redir /gemini-3-8-live-api/ /gemini-4-argon-api-access/ permanent    # The requested page is about a Gemini API, and /gemini-4-argon-api-access/ is the most relevant.
+redir /claude-code-plan-mode/ /claude-code-auto-mode-model/ permanent    # The requested page is about a specific mode, and the second link directly addresses the model used in the auto mode.
+redir /mcp-server-python/ /claude-code-mcp/ permanent    # The first page directly addresses adding a Claude Code MCP Server.
+redir /config.json.save /claude-code-settings-json/ permanent    # The first page is about settings JSON, which is the most likely context for a config.json request.

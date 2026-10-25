@@ -15,3 +15,13 @@ window_hours = 24
 min_similarity = 0.45
 # page-like 404s judged per night; the rest wait for the next night
 max_404_paths = 25
+# let Gemma reason before each redirect pick. On coremesh.online's first night this was 4.6x slower and made
+# twice as many wrong picks (see examples/), so it's off. Measure on your own log with eval_judge.py.
+judge_think = false
+# section pages offered as a weaker fallback
+hub_prefix = "/topics/"
+# a lost URL requested at least this often with no equivalent goes on the "worth restoring" list
+restore_min_hits = 3
+# behind Cloudflare: the visitor's IP comes from this header, but only when the connection came from one of
+# Cloudflare's published ranges (built in; override with trusted_proxies = ["cidr", ...]). No proxy? Set "".
+client_ip_header = "Cf-Connecting-Ip"

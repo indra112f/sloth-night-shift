@@ -1,0 +1,196 @@
+{
+ "/claude-code-skills/": {
+  "ok_targets": [
+   "/claude-code-slash-commands/"
+  ],
+  "ok_hubs": [
+   "/topics/claude-code/"
+  ],
+  "why": "The slash-commands cheat sheet covers writing your own skills (.claude/skills/<name>/SKILL.md and its frontmatter). Corrected after review: EmbeddingGemma never shortlisted it, and the first label missed it too."
+ },
+ "/jsondecodeerror-expecting-value/": {
+  "ok_targets": [
+   "/python-json-examples/"
+  ],
+  "ok_hubs": [
+   "/topics/coding/",
+   "/topics/fixes/"
+  ],
+  "why": "The JSON examples guide covers json.JSONDecodeError (4 mentions in the text), so a reader with that error gets an answer."
+ },
+ "/openai-prompt-caching-pricing/": {
+  "ok_targets": [],
+  "ok_hubs": [
+   "/topics/ai-tools/"
+  ],
+  "why": "The only caching guide is about Claude, a different product; nothing covers OpenAI pricing."
+ },
+ "/ollama-launch-command/": {
+  "ok_targets": [],
+  "ok_hubs": [
+   "/topics/ai-tools/"
+  ],
+  "why": "No live page is about Ollama."
+ },
+ "/responses-api-previous-response-id/": {
+  "ok_targets": [
+   "/openai-api-python/"
+  ],
+  "ok_hubs": [
+   "/topics/ai-tools/"
+  ],
+  "why": "The OpenAI API Python guide covers the Responses API and previous_response_id (5 mentions)."
+ },
+ "/claude-admin-api-webhooks/": {
+  "ok_targets": [],
+  "ok_hubs": [
+   "/topics/ai-tools/"
+  ],
+  "why": "No page covers the Admin API or webhooks; the Compliance API guide is a different API."
+ },
+ "/openai-agents-api-ultrafast-mode/": {
+  "ok_targets": [],
+  "ok_hubs": [
+   "/topics/ai-tools/",
+   "/topics/ai-agents/"
+  ],
+  "why": "Nothing on the site covers this OpenAI feature."
+ },
+ "/how-to-check-claude-code-usage/": {
+  "ok_targets": [
+   "/claude-code-usage-limit-reset/",
+   "/claude-code-output-format-json/"
+  ],
+  "ok_hubs": [
+   "/topics/claude-code/"
+  ],
+  "why": "The usage-limit guide explains /usage and /status; the JSON output guide tracks token usage per run."
+ },
+ "/github-search-api-rate-limit/": {
+  "ok_targets": [],
+  "ok_hubs": [
+   "/topics/github/"
+  ],
+  "why": "No page covers GitHub API rate limits; the Claude Code usage-limit page is a different product."
+ },
+ "/torchtitan-on-cloud-tpu/": {
+  "ok_targets": [],
+  "ok_hubs": [],
+  "why": "Nothing on the site is about torchtitan or TPUs."
+ },
+ "/claude-extended-thinking-budget/": {
+  "ok_targets": [],
+  "ok_hubs": [
+   "/topics/ai-tools/"
+  ],
+  "why": "No page covers extended thinking budgets."
+ },
+ "/ai-agent-for-bug-bounty-hunting/": {
+  "ok_targets": [],
+  "ok_hubs": [
+   "/topics/ai-agents/"
+  ],
+  "why": "The bug-fix prompt is about fixing your own errors, not bounty hunting."
+ },
+ "/claude-api-python/": {
+  "ok_targets": [],
+  "ok_hubs": [
+   "/topics/ai-tools/"
+  ],
+  "why": "No general Claude API Python guide is live; the OpenAI guide is another product."
+ },
+ "/prewarm-openai-hosted-sandbox/": {
+  "ok_targets": [],
+  "ok_hubs": [
+   "/topics/ai-tools/",
+   "/topics/ai-agents/"
+  ],
+  "why": "Nothing covers OpenAI hosted sandboxes."
+ },
+ "/ollama-modelfile/": {
+  "ok_targets": [],
+  "ok_hubs": [
+   "/topics/ai-tools/"
+  ],
+  "why": "No live page is about Ollama."
+ },
+ "/content-security-policy-inline-style-blocked/": {
+  "ok_targets": [],
+  "ok_hubs": [
+   "/topics/web/",
+   "/topics/fixes/"
+  ],
+  "why": "No page covers CSP errors."
+ },
+ "/ollama-web-search-api/": {
+  "ok_targets": [],
+  "ok_hubs": [
+   "/topics/ai-tools/"
+  ],
+  "why": "No live page is about Ollama."
+ },
+ "/claude-code-context-window-full/": {
+  "ok_targets": [
+   "/claude-code-idle-compaction/",
+   "/why-claude-code-uses-so-many-tokens/"
+  ],
+  "ok_hubs": [
+   "/topics/claude-code/"
+  ],
+  "why": "Both guides explain the context window and /compact."
+ },
+ "/python-logging-examples/": {
+  "ok_targets": [],
+  "ok_hubs": [
+   "/topics/coding/",
+   "/topics/cheatsheets/"
+  ],
+  "why": "No page covers the logging module; JSON examples is a different module."
+ },
+ "/gemini-3-8-live-api/": {
+  "ok_targets": [],
+  "ok_hubs": [
+   "/topics/ai-tools/"
+  ],
+  "why": "The Gemini 4 Argon API guide is a different model and API."
+ },
+ "/adk-streaming-tools-non-blocking/": {
+  "ok_targets": [],
+  "ok_hubs": [
+   "/topics/ai-agents/"
+  ],
+  "why": "Nothing covers Google ADK."
+ },
+ "/enable-copilot-enterprise-model-policy/": {
+  "ok_targets": [],
+  "ok_hubs": [
+   "/topics/ai-tools/",
+   "/topics/github/"
+  ],
+  "why": "The Copilot chat commands page is not about enterprise model policies."
+ },
+ "/claude-code-plan-mode/": {
+  "ok_targets": [
+   "/claude-code-slash-commands/"
+  ],
+  "ok_hubs": [
+   "/topics/claude-code/"
+  ],
+  "why": "The slash-commands cheat sheet covers /plan and plan mode; the auto-mode page is a different mode."
+ },
+ "/mcp-server-python/": {
+  "ok_targets": [],
+  "ok_hubs": [
+   "/topics/claude-code/",
+   "/topics/ai-agents/"
+  ],
+  "why": "The MCP guide is about adding servers to Claude Code, not writing one in Python."
+ },
+ "/claude-api-user-profiles/": {
+  "ok_targets": [],
+  "ok_hubs": [
+   "/topics/ai-tools/"
+  ],
+  "why": "The Compliance API guide covers user preferences, not user profiles; no page covers profiles."
+ }
+}

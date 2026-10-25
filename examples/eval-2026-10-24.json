@@ -1,0 +1,1139 @@
+{
+ "until": "2026-10-24T22:32:44Z",
+ "model": "gemma4:e2b",
+ "think_off": [
+  {
+   "path": "/claude-code-skills/",
+   "kind": "hub",
+   "target": "/topics/claude-code/",
+   "sim": 0.538,
+   "reason": "The /topics/claude-code/ page is the most likely guide section related to Claude code.",
+   "lost_topic": "Claude code skills or tutorials.",
+   "candidates": [
+    {
+     "path": "/claude-code-hooks/",
+     "sim": 0.541
+    },
+    {
+     "path": "/topics/claude-code/",
+     "sim": 0.538
+    },
+    {
+     "path": "/claude-code-headless/",
+     "sim": 0.534
+    }
+   ],
+   "hits": 31,
+   "seconds": 43.6
+  },
+  {
+   "path": "/jsondecodeerror-expecting-value/",
+   "kind": "redirect",
+   "target": "/python-json-examples/",
+   "sim": 0.459,
+   "reason": "The Python JSON examples page is the most likely to cover JSON decoding/loading issues.",
+   "lost_topic": "JSON decoding errors or expecting a value in JSON.",
+   "candidates": [
+    {
+     "path": "/javascript-fetch-api/",
+     "sim": 0.474
+    },
+    {
+     "path": "/python-json-examples/",
+     "sim": 0.459
+    },
+    {
+     "path": "/cors-error/",
+     "sim": 0.453
+    },
+    {
+     "path": "/topics/fixes/",
+     "sim": 0.414
+    }
+   ],
+   "hits": 6,
+   "seconds": 32.2
+  },
+  {
+   "path": "/openai-prompt-caching-pricing/",
+   "kind": "redirect",
+   "target": "/claude-prompt-caching/",
+   "sim": 0.616,
+   "reason": "The most relevant live page is about Claude prompt caching, which is the closest related service.",
+   "lost_topic": "Pricing information for OpenAI prompt caching.",
+   "candidates": [
+    {
+     "path": "/claude-prompt-caching/",
+     "sim": 0.616
+    },
+    {
+     "path": "/topics/prompts/",
+     "sim": 0.458
+    },
+    {
+     "path": "/prompts/improve-a-vague-prompt/",
+     "sim": 0.452
+    }
+   ],
+   "hits": 5,
+   "seconds": 30.4
+  },
+  {
+   "path": "/ollama-launch-command/",
+   "kind": "none",
+   "target": null,
+   "sim": null,
+   "reason": "None of the candidate pages directly match the topic of an Ollama launch command.",
+   "lost_topic": "The lost page was likely a specific command or instructions for launching the Ollama application.",
+   "candidates": [
+    {
+     "path": "/claude-code-slash-commands/",
+     "sim": 0.454
+    },
+    {
+     "path": "/topics/claude-code/",
+     "sim": 0.425
+    }
+   ],
+   "hits": 5,
+   "seconds": 25.7
+  },
+  {
+   "path": "/responses-api-previous-response-id/",
+   "kind": "none",
+   "target": null,
+   "sim": null,
+   "reason": "The URL suggests a specific endpoint for retrieving a previous response ID, which is likely a specific feature of the API documentation or usage guide.",
+   "lost_topic": "API response history or previous request data",
+   "candidates": [
+    {
+     "path": "/view-transitions-api/",
+     "sim": 0.461
+    }
+   ],
+   "hits": 5,
+   "seconds": 25.4
+  },
+  {
+   "path": "/claude-admin-api-webhooks/",
+   "kind": "none",
+   "target": null,
+   "sim": null,
+   "reason": "None of the candidate pages directly match the topic of an Admin API Webhook.",
+   "lost_topic": "Claude Admin API Webhooks",
+   "candidates": [
+    {
+     "path": "/claude-compliance-api-user-preferences/",
+     "sim": 0.602
+    },
+    {
+     "path": "/claude-code-hooks/",
+     "sim": 0.579
+    },
+    {
+     "path": "/topics/claude-code/",
+     "sim": 0.553
+    }
+   ],
+   "hits": 4,
+   "seconds": 27.6
+  },
+  {
+   "path": "/openai-agents-api-ultrafast-mode/",
+   "kind": "none",
+   "target": null,
+   "sim": null,
+   "reason": "None of the candidate pages seem to cover the specific 'openai-agents-api-ultrafast-mode' endpoint.",
+   "lost_topic": "An API endpoint or documentation page for an 'openai-agents-api-ultrafast-mode'.",
+   "candidates": [
+    {
+     "path": "/openai-api-python/",
+     "sim": 0.517
+    },
+    {
+     "path": "/javascript-fetch-api/",
+     "sim": 0.503
+    },
+    {
+     "path": "/prompts/find-why-code-is-slow/",
+     "sim": 0.471
+    },
+    {
+     "path": "/topics/prompts/",
+     "sim": 0.404
+    }
+   ],
+   "hits": 4,
+   "seconds": 34.1
+  },
+  {
+   "path": "/how-to-check-claude-code-usage/",
+   "kind": "redirect",
+   "target": "/claude-code-usage-limit-reset/",
+   "sim": 0.604,
+   "reason": "The candidate page directly addresses Claude code usage limits and output formats.",
+   "lost_topic": "How to check Claude code usage.",
+   "candidates": [
+    {
+     "path": "/claude-code-usage-limit-reset/",
+     "sim": 0.604
+    },
+    {
+     "path": "/claude-code-output-format-json/",
+     "sim": 0.601
+    },
+    {
+     "path": "/topics/claude-code/",
+     "sim": 0.589
+    }
+   ],
+   "hits": 4,
+   "seconds": 29.4
+  },
+  {
+   "path": "/github-search-api-rate-limit/",
+   "kind": "none",
+   "target": null,
+   "sim": null,
+   "reason": "None of the live pages directly address GitHub API rate limiting.",
+   "lost_topic": "GitHub API rate limiting.",
+   "candidates": [
+    {
+     "path": "/nginx-rate-limiting/",
+     "sim": 0.562
+    },
+    {
+     "path": "/claude-code-usage-limit-reset/",
+     "sim": 0.476
+    },
+    {
+     "path": "/topics/github/",
+     "sim": 0.4
+    }
+   ],
+   "hits": 4,
+   "seconds": 25.1
+  },
+  {
+   "path": "/torchtitan-on-cloud-tpu/",
+   "kind": "none",
+   "target": null,
+   "sim": null,
+   "reason": "no live page is close enough",
+   "candidates": [],
+   "hits": 3,
+   "seconds": 0.0
+  },
+  {
+   "path": "/claude-extended-thinking-budget/",
+   "kind": "hub",
+   "target": "/topics/claude-code/",
+   "sim": 0.401,
+   "reason": "The candidate page is about Claude code guides, which is the closest related topic.",
+   "lost_topic": "Extended thinking budget for Claude.",
+   "candidates": [
+    {
+     "path": "/topics/claude-code/",
+     "sim": 0.401
+    }
+   ],
+   "hits": 3,
+   "seconds": 19.3
+  },
+  {
+   "path": "/ai-agent-for-bug-bounty-hunting/",
+   "kind": "none",
+   "target": null,
+   "sim": null,
+   "reason": "None of the candidate pages directly match the topic of an AI agent for bug bounty hunting.",
+   "lost_topic": "An AI agent for bug bounty hunting.",
+   "candidates": [
+    {
+     "path": "/prompts/fix-a-bug-from-an-error-message/",
+     "sim": 0.52
+    },
+    {
+     "path": "/prompts/plan-before-coding/",
+     "sim": 0.498
+    },
+    {
+     "path": "/prompts/find-why-a-test-fails/",
+     "sim": 0.489
+    },
+    {
+     "path": "/topics/ai-tools/",
+     "sim": 0.472
+    }
+   ],
+   "hits": 3,
+   "seconds": 33.7
+  },
+  {
+   "path": "/claude-api-python/",
+   "kind": "hub",
+   "target": "/topics/claude-code/",
+   "sim": 0.505,
+   "reason": "The most relevant candidate is the page specifically about Claude code guides.",
+   "lost_topic": "A Python tutorial or guide for using the Claude API.",
+   "candidates": [
+    {
+     "path": "/claude-compliance-api-user-preferences/",
+     "sim": 0.612
+    },
+    {
+     "path": "/openai-api-python/",
+     "sim": 0.573
+    },
+    {
+     "path": "/gemini-api-python/",
+     "sim": 0.553
+    },
+    {
+     "path": "/topics/claude-code/",
+     "sim": 0.505
+    }
+   ],
+   "hits": 3,
+   "seconds": 32.4
+  },
+  {
+   "path": "/prewarm-openai-hosted-sandbox/",
+   "kind": "none",
+   "target": null,
+   "sim": null,
+   "reason": "None of the candidate pages directly address prewarming an OpenAI sandbox.",
+   "lost_topic": "Prewarming an OpenAI-hosted sandbox environment.",
+   "candidates": [
+    {
+     "path": "/openai-api-python/",
+     "sim": 0.496
+    },
+    {
+     "path": "/topics/prompts/",
+     "sim": 0.476
+    },
+    {
+     "path": "/openai-prompt-to-voice-api/",
+     "sim": 0.475
+    }
+   ],
+   "hits": 2,
+   "seconds": 27.7
+  },
+  {
+   "path": "/ollama-modelfile/",
+   "kind": "none",
+   "target": null,
+   "sim": null,
+   "reason": "no live page is close enough",
+   "candidates": [],
+   "hits": 2,
+   "seconds": 0.0
+  },
+  {
+   "path": "/content-security-policy-inline-style-blocked/",
+   "kind": "hub",
+   "target": "/topics/ui-ux/",
+   "sim": 0.392,
+   "reason": "The candidate page is a guide on CSS, accessibility, and motion, which is a related technical topic.",
+   "lost_topic": "Inline styles and content security policies (CSP) in web development.",
+   "candidates": [
+    {
+     "path": "/topics/ui-ux/",
+     "sim": 0.392
+    }
+   ],
+   "hits": 2,
+   "seconds": 24.4
+  },
+  {
+   "path": "/ollama-web-search-api/",
+   "kind": "redirect",
+   "target": "/javascript-fetch-api/",
+   "sim": 0.483,
+   "reason": "The candidate '/topics/web/' is the most relevant as it deals with web and SEO guides.",
+   "lost_topic": "An API endpoint for web search functionality using Ollama.",
+   "candidates": [
+    {
+     "path": "/javascript-fetch-api/",
+     "sim": 0.483
+    },
+    {
+     "path": "/claude-compliance-api-user-preferences/",
+     "sim": 0.459
+    },
+    {
+     "path": "/topics/web/",
+     "sim": 0.421
+    }
+   ],
+   "hits": 2,
+   "seconds": 30.6
+  },
+  {
+   "path": "/claude-code-context-window-full/",
+   "kind": "hub",
+   "target": "/topics/claude-code/",
+   "sim": 0.561,
+   "reason": "The candidate page '/topics/claude-code/' is the most general guide related to Claude code.",
+   "lost_topic": "Information about the full context window for Claude code.",
+   "candidates": [
+    {
+     "path": "/topics/claude-code/",
+     "sim": 0.561
+    },
+    {
+     "path": "/claude-code-hooks/",
+     "sim": 0.549
+    },
+    {
+     "path": "/why-claude-code-uses-so-many-tokens/",
+     "sim": 0.529
+    }
+   ],
+   "hits": 2,
+   "seconds": 31.3
+  },
+  {
+   "path": "/python-logging-examples/",
+   "kind": "none",
+   "target": null,
+   "sim": null,
+   "reason": "None of the candidate pages directly relate to Python logging examples.",
+   "lost_topic": "Python logging examples",
+   "candidates": [
+    {
+     "path": "/jq-cheat-sheet/",
+     "sim": 0.514
+    },
+    {
+     "path": "/python-json-examples/",
+     "sim": 0.501
+    },
+    {
+     "path": "/python-regex-examples/",
+     "sim": 0.494
+    },
+    {
+     "path": "/topics/cheatsheets/",
+     "sim": 0.416
+    }
+   ],
+   "hits": 2,
+   "seconds": 26.7
+  },
+  {
+   "path": "/gemini-3-8-live-api/",
+   "kind": "hub",
+   "target": "/topics/ai-tools/",
+   "sim": 0.376,
+   "reason": "The candidate page about Gemini 4 API access is the most relevant to accessing a Gemini API.",
+   "lost_topic": "Accessing a live API endpoint for Gemini 3.8.",
+   "candidates": [
+    {
+     "path": "/gemini-api-python/",
+     "sim": 0.54
+    },
+    {
+     "path": "/javascript-fetch-api/",
+     "sim": 0.469
+    },
+    {
+     "path": "/gemini-4-argon-api-access/",
+     "sim": 0.464
+    },
+    {
+     "path": "/topics/ai-tools/",
+     "sim": 0.376
+    }
+   ],
+   "hits": 2,
+   "seconds": 31.8
+  },
+  {
+   "path": "/adk-streaming-tools-non-blocking/",
+   "kind": "none",
+   "target": null,
+   "sim": null,
+   "reason": "no live page is close enough",
+   "candidates": [],
+   "hits": 2,
+   "seconds": 0.0
+  },
+  {
+   "path": "/enable-copilot-enterprise-model-policy/",
+   "kind": "hub",
+   "target": "/topics/prompts/",
+   "sim": 0.372,
+   "reason": "The URL strongly suggests a guide on configuring or enabling a specific enterprise feature for a product.",
+   "lost_topic": "Enabling an enterprise model policy for Copilot.",
+   "candidates": [
+    {
+     "path": "/topics/prompts/",
+     "sim": 0.372
+    }
+   ],
+   "hits": 2,
+   "seconds": 21.9
+  },
+  {
+   "path": "/claude-code-plan-mode/",
+   "kind": "hub",
+   "target": "/topics/claude-code/",
+   "sim": 0.576,
+   "reason": "The candidate pages cover different aspects of Claude code functionality, making the first one the most likely general guide.",
+   "lost_topic": "A specific code plan mode for Claude.",
+   "candidates": [
+    {
+     "path": "/topics/claude-code/",
+     "sim": 0.576
+    },
+    {
+     "path": "/claude-code-auto-mode-model/",
+     "sim": 0.573
+    },
+    {
+     "path": "/claude-code-headless/",
+     "sim": 0.547
+    }
+   ],
+   "hits": 2,
+   "seconds": 32.4
+  },
+  {
+   "path": "/mcp-server-python/",
+   "kind": "redirect",
+   "target": "/claude-code-mcp/",
+   "sim": 0.623,
+   "reason": "The candidate page '/claude-code-mcp/' is the most relevant as it deals with setting up an MCP server.",
+   "lost_topic": "A guide or information page about setting up or using a Python MCP server.",
+   "candidates": [
+    {
+     "path": "/claude-code-mcp/",
+     "sim": 0.623
+    },
+    {
+     "path": "/claude-code-headless/",
+     "sim": 0.466
+    },
+    {
+     "path": "/topics/claude-code/",
+     "sim": 0.412
+    }
+   ],
+   "hits": 2,
+   "seconds": 32.6
+  },
+  {
+   "path": "/claude-api-user-profiles/",
+   "kind": "none",
+   "target": null,
+   "sim": null,
+   "reason": "None of the candidate pages directly relate to user profiles.",
+   "lost_topic": "Claude API user profiles or settings.",
+   "candidates": [
+    {
+     "path": "/claude-compliance-api-user-preferences/",
+     "sim": 0.658
+    },
+    {
+     "path": "/claude-setup-token/",
+     "sim": 0.531
+    },
+    {
+     "path": "/claude-code-opentelemetry-gen-ai-attributes/",
+     "sim": 0.477
+    },
+    {
+     "path": "/topics/claude-code/",
+     "sim": 0.461
+    }
+   ],
+   "hits": 2,
+   "seconds": 31.1
+  }
+ ],
+ "think_on": [
+  {
+   "path": "/claude-code-skills/",
+   "kind": "hub",
+   "target": "/topics/claude-code/",
+   "sim": 0.538,
+   "reason": "This page is the most comprehensive guide covering commands, settings, and hooks, aligning best with a general 'skills' topic.",
+   "lost_topic": "A general guide or overview of skills, commands, and methods for using Claude for coding tasks.",
+   "candidates": [
+    {
+     "path": "/claude-code-hooks/",
+     "sim": 0.541
+    },
+    {
+     "path": "/topics/claude-code/",
+     "sim": 0.538
+    },
+    {
+     "path": "/claude-code-headless/",
+     "sim": 0.534
+    }
+   ],
+   "hits": 31,
+   "seconds": 144.6
+  },
+  {
+   "path": "/jsondecodeerror-expecting-value/",
+   "kind": "redirect",
+   "target": "/javascript-fetch-api/",
+   "sim": 0.474,
+   "reason": "This page covers JSON handling within the JavaScript Fetch API, which is a common context for JSON decoding errors.",
+   "lost_topic": "The lost page was most likely about handling errors that occur when attempting to parse or decode JSON data.",
+   "candidates": [
+    {
+     "path": "/javascript-fetch-api/",
+     "sim": 0.474
+    },
+    {
+     "path": "/python-json-examples/",
+     "sim": 0.459
+    },
+    {
+     "path": "/cors-error/",
+     "sim": 0.453
+    },
+    {
+     "path": "/topics/fixes/",
+     "sim": 0.414
+    }
+   ],
+   "hits": 6,
+   "seconds": 165.6
+  },
+  {
+   "path": "/openai-prompt-caching-pricing/",
+   "kind": "redirect",
+   "target": "/claude-prompt-caching/",
+   "sim": 0.616,
+   "reason": "The candidate page addresses prompt caching, which is the core subject of the lost URL, despite focusing on Claude instead of OpenAI.",
+   "lost_topic": "The pricing structure, costs, and subscription models for using prompt caching services with OpenAI models.",
+   "candidates": [
+    {
+     "path": "/claude-prompt-caching/",
+     "sim": 0.616
+    },
+    {
+     "path": "/topics/prompts/",
+     "sim": 0.458
+    },
+    {
+     "path": "/prompts/improve-a-vague-prompt/",
+     "sim": 0.452
+    }
+   ],
+   "hits": 5,
+   "seconds": 139.4
+  },
+  {
+   "path": "/ollama-launch-command/",
+   "kind": "none",
+   "target": null,
+   "sim": null,
+   "reason": "Neither candidate page is about Ollama, making them entirely different topics.",
+   "lost_topic": "A command or guide on how to launch or run the Ollama large language model tool.",
+   "candidates": [
+    {
+     "path": "/claude-code-slash-commands/",
+     "sim": 0.454
+    },
+    {
+     "path": "/topics/claude-code/",
+     "sim": 0.425
+    }
+   ],
+   "hits": 5,
+   "seconds": 111.3
+  },
+  {
+   "path": "/responses-api-previous-response-id/",
+   "kind": "none",
+   "target": null,
+   "sim": null,
+   "reason": "The candidate page is about browser features, which is unrelated to API response handling.",
+   "lost_topic": "An API endpoint for retrieving or referencing previous response IDs.",
+   "candidates": [
+    {
+     "path": "/view-transitions-api/",
+     "sim": 0.461
+    }
+   ],
+   "hits": 5,
+   "seconds": 96.6
+  },
+  {
+   "path": "/claude-admin-api-webhooks/",
+   "kind": "hub",
+   "target": "/topics/claude-code/",
+   "sim": 0.553,
+   "reason": "The general code guides page covers hooks, which are closely related to the functionality of webhooks.",
+   "lost_topic": "Managing or configuring webhooks for the Claude Admin API.",
+   "candidates": [
+    {
+     "path": "/claude-compliance-api-user-preferences/",
+     "sim": 0.602
+    },
+    {
+     "path": "/claude-code-hooks/",
+     "sim": 0.579
+    },
+    {
+     "path": "/topics/claude-code/",
+     "sim": 0.553
+    }
+   ],
+   "hits": 4,
+   "seconds": 143.3
+  },
+  {
+   "path": "/openai-agents-api-ultrafast-mode/",
+   "kind": "redirect",
+   "target": "/openai-api-python/",
+   "sim": 0.517,
+   "reason": "The Python guide is the most direct replacement for a lost page about using the OpenAI API.",
+   "lost_topic": "The lost page was most likely about how to use advanced or optimized modes for the OpenAI API, specifically focusing on ",
+   "candidates": [
+    {
+     "path": "/openai-api-python/",
+     "sim": 0.517
+    },
+    {
+     "path": "/javascript-fetch-api/",
+     "sim": 0.503
+    },
+    {
+     "path": "/prompts/find-why-code-is-slow/",
+     "sim": 0.471
+    },
+    {
+     "path": "/topics/prompts/",
+     "sim": 0.404
+    }
+   ],
+   "hits": 4,
+   "seconds": 153.0
+  },
+  {
+   "path": "/how-to-check-claude-code-usage/",
+   "kind": "redirect",
+   "target": "/claude-code-usage-limit-reset/",
+   "sim": 0.604,
+   "reason": "The candidate directly addresses the topic of usage limits and resets, which is the core function of checking code usage.",
+   "lost_topic": "How to monitor and manage Claude's code usage.",
+   "candidates": [
+    {
+     "path": "/claude-code-usage-limit-reset/",
+     "sim": 0.604
+    },
+    {
+     "path": "/claude-code-output-format-json/",
+     "sim": 0.601
+    },
+    {
+     "path": "/topics/claude-code/",
+     "sim": 0.589
+    }
+   ],
+   "hits": 4,
+   "seconds": 155.3
+  },
+  {
+   "path": "/github-search-api-rate-limit/",
+   "kind": "none",
+   "target": null,
+   "sim": null,
+   "reason": "The Nginx rate limiting page is the closest match as it addresses the core concept of rate limiting in a technical context.",
+   "lost_topic": "Managing API rate limits for GitHub.",
+   "candidates": [
+    {
+     "path": "/nginx-rate-limiting/",
+     "sim": 0.562
+    },
+    {
+     "path": "/claude-code-usage-limit-reset/",
+     "sim": 0.476
+    },
+    {
+     "path": "/topics/github/",
+     "sim": 0.4
+    }
+   ],
+   "hits": 4,
+   "seconds": 147.7
+  },
+  {
+   "path": "/torchtitan-on-cloud-tpu/",
+   "kind": "none",
+   "target": null,
+   "sim": null,
+   "reason": "no live page is close enough",
+   "candidates": [],
+   "hits": 3,
+   "seconds": 0.0
+  },
+  {
+   "path": "/claude-extended-thinking-budget/",
+   "kind": "none",
+   "target": null,
+   "sim": null,
+   "reason": "The candidate page is about Claude code guides, which is a different topic than a budget or thinking limit page.",
+   "lost_topic": "The lost page was most likely about the pricing, usage limits, or advanced feature budgets associated with the Claude AI",
+   "candidates": [
+    {
+     "path": "/topics/claude-code/",
+     "sim": 0.401
+    }
+   ],
+   "hits": 3,
+   "seconds": 126.1
+  },
+  {
+   "path": "/ai-agent-for-bug-bounty-hunting/",
+   "kind": "none",
+   "target": null,
+   "sim": null,
+   "reason": "None of the candidate pages directly address AI agents for bug bounty hunting.",
+   "lost_topic": "Using AI agents or tools for security-related tasks like bug bounty hunting.",
+   "candidates": [
+    {
+     "path": "/prompts/fix-a-bug-from-an-error-message/",
+     "sim": 0.52
+    },
+    {
+     "path": "/prompts/plan-before-coding/",
+     "sim": 0.498
+    },
+    {
+     "path": "/prompts/find-why-a-test-fails/",
+     "sim": 0.489
+    },
+    {
+     "path": "/topics/ai-tools/",
+     "sim": 0.472
+    }
+   ],
+   "hits": 3,
+   "seconds": 140.0
+  },
+  {
+   "path": "/claude-api-python/",
+   "kind": "hub",
+   "target": "/topics/claude-code/",
+   "sim": 0.505,
+   "reason": "This page is the only candidate explicitly focused on Claude code guides.",
+   "lost_topic": "A tutorial or guide on how to use the Claude API with Python.",
+   "candidates": [
+    {
+     "path": "/claude-compliance-api-user-preferences/",
+     "sim": 0.612
+    },
+    {
+     "path": "/openai-api-python/",
+     "sim": 0.573
+    },
+    {
+     "path": "/gemini-api-python/",
+     "sim": 0.553
+    },
+    {
+     "path": "/topics/claude-code/",
+     "sim": 0.505
+    }
+   ],
+   "hits": 3,
+   "seconds": 148.3
+  },
+  {
+   "path": "/prewarm-openai-hosted-sandbox/",
+   "kind": "none",
+   "target": null,
+   "sim": null,
+   "reason": "The candidate pages cover specific OpenAI features (API usage, prompt engineering, voice API) but none match the specific topic of a prewarming sandbox.",
+   "lost_topic": "Instructions or a demonstration on how to use an OpenAI hosted environment or sandbox for prewarming models.",
+   "candidates": [
+    {
+     "path": "/openai-api-python/",
+     "sim": 0.496
+    },
+    {
+     "path": "/topics/prompts/",
+     "sim": 0.476
+    },
+    {
+     "path": "/openai-prompt-to-voice-api/",
+     "sim": 0.475
+    }
+   ],
+   "hits": 2,
+   "seconds": 128.6
+  },
+  {
+   "path": "/ollama-modelfile/",
+   "kind": "none",
+   "target": null,
+   "sim": null,
+   "reason": "no live page is close enough",
+   "candidates": [],
+   "hits": 2,
+   "seconds": 0.0
+  },
+  {
+   "path": "/content-security-policy-inline-style-blocked/",
+   "kind": "none",
+   "target": null,
+   "sim": null,
+   "reason": "The candidate page is about UI/UX guides, which is unrelated to content security policies.",
+   "lost_topic": "The lost page was most likely about how to configure or troubleshoot Content Security Policies, specifically regarding t",
+   "candidates": [
+    {
+     "path": "/topics/ui-ux/",
+     "sim": 0.392
+    }
+   ],
+   "hits": 2,
+   "seconds": 99.4
+  },
+  {
+   "path": "/ollama-web-search-api/",
+   "kind": "none",
+   "target": null,
+   "sim": null,
+   "reason": "No candidate page directly addresses an Ollama web search API.",
+   "lost_topic": "Documentation or API guide for using an Ollama web search service.",
+   "candidates": [
+    {
+     "path": "/javascript-fetch-api/",
+     "sim": 0.483
+    },
+    {
+     "path": "/claude-compliance-api-user-preferences/",
+     "sim": 0.459
+    },
+    {
+     "path": "/topics/web/",
+     "sim": 0.421
+    }
+   ],
+   "hits": 2,
+   "seconds": 135.9
+  },
+  {
+   "path": "/claude-code-context-window-full/",
+   "kind": "redirect",
+   "target": "/why-claude-code-uses-so-many-tokens/",
+   "sim": 0.529,
+   "reason": "The lost page was about token usage, which is directly related to the context window size.",
+   "lost_topic": "The maximum size, function, or implications of Claude's context window when used for coding.",
+   "candidates": [
+    {
+     "path": "/topics/claude-code/",
+     "sim": 0.561
+    },
+    {
+     "path": "/claude-code-hooks/",
+     "sim": 0.549
+    },
+    {
+     "path": "/why-claude-code-uses-so-many-tokens/",
+     "sim": 0.529
+    }
+   ],
+   "hits": 2,
+   "seconds": 143.6
+  },
+  {
+   "path": "/python-logging-examples/",
+   "kind": "none",
+   "target": null,
+   "sim": null,
+   "reason": "No candidate page directly addresses Python logging examples, making a direct same_topic match impossible.",
+   "lost_topic": "Practical examples and tutorials on using the Python logging module.",
+   "candidates": [
+    {
+     "path": "/jq-cheat-sheet/",
+     "sim": 0.514
+    },
+    {
+     "path": "/python-json-examples/",
+     "sim": 0.501
+    },
+    {
+     "path": "/python-regex-examples/",
+     "sim": 0.494
+    },
+    {
+     "path": "/topics/cheatsheets/",
+     "sim": 0.416
+    }
+   ],
+   "hits": 2,
+   "seconds": 125.7
+  },
+  {
+   "path": "/gemini-3-8-live-api/",
+   "kind": "redirect",
+   "target": "/gemini-api-python/",
+   "sim": 0.54,
+   "reason": "This page provides specific documentation on using the Gemini API with Python.",
+   "lost_topic": "Documentation or instructions for accessing and using the Gemini 3.8 live API.",
+   "candidates": [
+    {
+     "path": "/gemini-api-python/",
+     "sim": 0.54
+    },
+    {
+     "path": "/javascript-fetch-api/",
+     "sim": 0.469
+    },
+    {
+     "path": "/gemini-4-argon-api-access/",
+     "sim": 0.464
+    },
+    {
+     "path": "/topics/ai-tools/",
+     "sim": 0.376
+    }
+   ],
+   "hits": 2,
+   "seconds": 139.5
+  },
+  {
+   "path": "/adk-streaming-tools-non-blocking/",
+   "kind": "none",
+   "target": null,
+   "sim": null,
+   "reason": "no live page is close enough",
+   "candidates": [],
+   "hits": 2,
+   "seconds": 0.0
+  },
+  {
+   "path": "/enable-copilot-enterprise-model-policy/",
+   "kind": "none",
+   "target": null,
+   "sim": null,
+   "reason": "The candidate page is about prompt engineering, which is unrelated to enterprise policy configuration.",
+   "lost_topic": "Enabling or configuring an enterprise policy for using Copilot models.",
+   "candidates": [
+    {
+     "path": "/topics/prompts/",
+     "sim": 0.372
+    }
+   ],
+   "hits": 2,
+   "seconds": 107.8
+  },
+  {
+   "path": "/claude-code-plan-mode/",
+   "kind": "hub",
+   "target": "/topics/claude-code/",
+   "sim": 0.576,
+   "reason": "The section page covers general Claude Code guides, which is the most likely place to find documentation for specific modes like 'plan mode'.",
+   "lost_topic": "A guide or documentation explaining the 'plan mode' feature of Claude Code.",
+   "candidates": [
+    {
+     "path": "/topics/claude-code/",
+     "sim": 0.576
+    },
+    {
+     "path": "/claude-code-auto-mode-model/",
+     "sim": 0.573
+    },
+    {
+     "path": "/claude-code-headless/",
+     "sim": 0.547
+    }
+   ],
+   "hits": 2,
+   "seconds": 147.9
+  },
+  {
+   "path": "/mcp-server-python/",
+   "kind": "redirect",
+   "target": "/claude-code-mcp/",
+   "sim": 0.623,
+   "reason": "The first candidate directly addresses the concept of an MCP Server, matching the structure of the lost URL.",
+   "lost_topic": "Setting up, configuring, or troubleshooting a Python-based MCP server for Claude Code.",
+   "candidates": [
+    {
+     "path": "/claude-code-mcp/",
+     "sim": 0.623
+    },
+    {
+     "path": "/claude-code-headless/",
+     "sim": 0.466
+    },
+    {
+     "path": "/topics/claude-code/",
+     "sim": 0.412
+    }
+   ],
+   "hits": 2,
+   "seconds": 142.2
+  },
+  {
+   "path": "/claude-api-user-profiles/",
+   "kind": "redirect",
+   "target": "/claude-compliance-api-user-preferences/",
+   "sim": 0.658,
+   "reason": "The candidate page deals directly with user preferences, which is the closest functional equivalent to user profiles.",
+   "lost_topic": "Managing or viewing user profiles for the Claude API.",
+   "candidates": [
+    {
+     "path": "/claude-compliance-api-user-preferences/",
+     "sim": 0.658
+    },
+    {
+     "path": "/claude-setup-token/",
+     "sim": 0.531
+    },
+    {
+     "path": "/claude-code-opentelemetry-gen-ai-attributes/",
+     "sim": 0.477
+    },
+    {
+     "path": "/topics/claude-code/",
+     "sim": 0.461
+    }
+   ],
+   "hits": 2,
+   "seconds": 122.4
+  }
+ ],
+ "think_off_seconds": 649.4,
+ "think_on_seconds": 2964.2,
+ "think_off_score": {
+  "n": 25,
+  "right": 18,
+  "found": 2,
+  "wrong": 3,
+  "hubs": 8,
+  "hubs_ok": 4,
+  "wrong_list": [
+   "/openai-prompt-caching-pricing/ -> /claude-prompt-caching/",
+   "/ollama-web-search-api/ -> /javascript-fetch-api/",
+   "/mcp-server-python/ -> /claude-code-mcp/"
+  ]
+ },
+ "think_on_score": {
+  "n": 25,
+  "right": 16,
+  "found": 2,
+  "wrong": 6,
+  "hubs": 4,
+  "hubs_ok": 2,
+  "wrong_list": [
+   "/jsondecodeerror-expecting-value/ -> /javascript-fetch-api/",
+   "/openai-prompt-caching-pricing/ -> /claude-prompt-caching/",
+   "/openai-agents-api-ultrafast-mode/ -> /openai-api-python/",
+   "/gemini-3-8-live-api/ -> /gemini-api-python/",
+   "/mcp-server-python/ -> /claude-code-mcp/",
+   "/claude-api-user-profiles/ -> /claude-compliance-api-user-preferences/"
+  ]
+ }
+}

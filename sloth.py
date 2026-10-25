@@ -32,7 +32,18 @@ import urllib.error
 import urllib.request
 from pathlib import Path
 
-__version__ = "0.1.0"
+__version__ = "0.2.1"
+
+# Cloudflare's published edge ranges (https://www.cloudflare.com/ips/, checked 2026-10-25). Only a request whose TCP
+# peer is in one of these may name the real client in the Cf-Connecting-Ip header; anyone else could forge it.
+CLOUDFLARE = [
+    "173.245.48.0/20", "103.21.244.0/22", "103.22.200.0/22", "103.31.4.0/22", "141.101.64.0/18", "108.162.192.0/18",
+    "190.93.240.0/20", "188.114.96.0/20", "197.234.240.0/22", "198.41.128.0/17", "162.158.0.0/15", "104.16.0.0/13",
+    "104.24.0.0/14", "172.64.0.0/13", "131.0.72.0/22",
+    "2400:cb00::/32", "2606:4700::/32", "2803:f800::/32", "2405:b500::/32", "2405:8100::/32", "2a06:98c0::/29",
+    "2c0f:f248::/32",
+]
+DNS_CACHE_DAYS = 7                       # crawler IPs are kept this long for the DNS check, then dropped
 
 DEFAULTS = {
     "site": "https://example.com",
@@ -46,11 +57,16 @@ DEFAULTS = {
     "window_hours": 24,
     "min_similarity": 0.45,              # below this, no candidate is sent to the chat model
     "max_404_paths": 25,                 # page-like 404s judged per night (the slow part)
+    "judge_think": False,                # measured on night 1: thinking was 4.6x slower and made more wrong picks
+    "hub_prefix": "/topics/",            # section pages offered as a weaker fallback ("same area")
+    "restore_min_hits": 3,               # lost URLs requested this often with no equivalent: worth restoring
+    "client_ip_header": "Cf-Connecting-Ip",  # trusted only from the proxies below; "" = always use the TCP peer
+    "trusted_proxies": CLOUDFLARE,       # CIDRs allowed to set client_ip_header
 }
 
 # requests that are attack probes or scanner noise, not lost pages
 PROBE = re.compile(
-    r"(\.(php\d?|aspx?|jsp|cgi|env|ini|sql|bak|old|swp|log|ya?ml|sh|git)(/|$)|/wp-|/wordpress|/xmlrpc|/cgi-bin|"
+    r"(\.(php\d?|aspx?|jsp|cgi|env|ini|sql|bak|old|orig|save|swp|swo|tmp|log|ya?ml|sh|git)(/|$)|/wp-|/wordpress|/xmlrpc|/cgi-bin|"
     r"/phpmyadmin|/pma|/\.git|/\.env|/\.aws|/\.ssh|/vendor/|/actuator|/boaform|/hnap1|/owa/|/autodiscover|"
     r"/admin(/|$)|/login(/|$)|/setup(/|$)|/console(/|$)|/server-status|/druid|/solr|/telescope|/debug)", re.I)
 ASSET = re.compile(r"\.(css|js|png|jpe?g|gif|webp|avif|svg|ico|woff2?|ttf|map|json|txt|xml|pdf|mp4|webm)$", re.I)
@@ -77,7 +93,10 @@ def load_state(out):
     return {"since": None, "crawl": {}, "dns": {}, "seen_404": {}}
 
 
-def save_state(out, state):
+def save_state(out, state, now=None):
+    """Writes the state. DNS results older than DNS_CACHE_DAYS are dropped first, so no IP address is kept longer."""
+    now = now or time.time()
+    state["dns"] = {ip: v for ip, v in state.get("dns", {}).items() if now - v.get("at", 0) < DNS_CACHE_DAYS * 86400}
     p = Path(out) / "state.json"
     tmp = p.with_suffix(".tmp")
     tmp.write_text(json.dumps(state, indent=1, sort_keys=True))
@@ -89,8 +108,21 @@ def open_any(path):
     return gzip.open(path, "rt", errors="replace") if path.endswith(".gz") else open(path, errors="replace")
 
 
-def read_log(pattern, since_ts, until_ts):
+def client_ip(peer, headers, header, nets):
+    """The TCP peer, unless the peer is a trusted proxy: then the client address the proxy put in `header`."""
+    if header and nets and peer:
+        try:
+            ip = ipaddress.ip_address(peer)
+        except ValueError:
+            return peer
+        if any(ip in n for n in nets):
+            return headers.get(header.lower()) or peer
+    return peer
+
+
+def read_log(pattern, since_ts, until_ts, header="Cf-Connecting-Ip", proxies=CLOUDFLARE):
     """Caddy JSON access log lines -> dicts. Rotated (.1, .2.gz) files are read too; old lines are skipped."""
+    nets = [ipaddress.ip_network(c) for c in proxies or []]
     out = []
     for path in sorted(glob.glob(pattern)):
         with open_any(path) as f:
@@ -110,7 +142,7 @@ def read_log(pattern, since_ts, until_ts):
                     "status": int(d.get("status") or 0),
                     "method": req.get("method", ""),
                     "path": uri.split("?", 1)[0] or "/",
-                    "ip": h.get("cf-connecting-ip") or req.get("remote_ip") or "",
+                    "ip": client_ip(req.get("remote_ip") or "", h, header, nets),
                     "ua": h.get("user-agent") or "",
                     "referer": h.get("referer") or "",
                 })
@@ -153,10 +185,10 @@ def claimed_bot(ua):
 
 def verify_ip(ip, suffixes, cache, resolver=socket):
     """Google's documented check: reverse DNS must end in the crawler's domain, and the forward lookup of that
-    hostname must return the same IP. Results are cached for 7 days."""
+    hostname must return the same IP. Results are cached for DNS_CACHE_DAYS."""
     key = ip
     hit = cache.get(key)
-    if hit and time.time() - hit["at"] < 7 * 86400:
+    if hit and time.time() - hit["at"] < DNS_CACHE_DAYS * 86400:
         return hit["ok"], hit.get("host", "")
     ok, host = False, ""
     try:
@@ -190,9 +222,9 @@ class Ollama:
     def embed(self, texts):
         return self._post("/api/embed", {"model": self.embed_model, "input": texts})["embeddings"]
 
-    def chat_json(self, prompt, schema):
+    def chat_json(self, prompt, schema, think=False):
         body = {"model": self.chat_model, "stream": False, "format": schema, "options": {"temperature": 0},
-                "think": False,      # a yes/no pick doesn't need a reasoning trace; about 7x fewer tokens on CPU
+                "think": bool(think),   # reasoning trace on or off (about 5x more tokens when on)
                 "messages": [{"role": "user", "content": prompt}]}
         try:
             data = self._post("/api/chat", body)
@@ -223,39 +255,86 @@ def classify_404(path, live):
     return "other"
 
 
-JUDGE_SCHEMA = {"type": "object", "properties": {"pick": {"type": "integer"}, "reason": {"type": "string"}},
-                "required": ["pick", "reason"]}
+VERDICTS = ("same_topic", "same_area", "different")
+JUDGE_SCHEMA = {"type": "object", "properties": {
+    "lost_topic": {"type": "string"},
+    "verdicts": {"type": "array", "items": {"type": "object", "properties": {
+        "n": {"type": "integer"}, "match": {"type": "string", "enum": list(VERDICTS)}}, "required": ["n", "match"]}},
+    "pick": {"type": "integer"}, "reason": {"type": "string"}},
+    "required": ["lost_topic", "verdicts", "pick", "reason"]}
 
 
 def judge_prompt(site, path, cands):
-    lines = "\n".join(f"{i}. {c['path']} ({c['title']})" for i, c in enumerate(cands, 1))
-    return (f"A request for {site}{path} returned 404 Not Found. These live pages exist on the same site:\n{lines}\n\n"
-            "Pick the page that covers the same topic, so a permanent redirect would give the reader what they "
-            "were looking for. If none of them is about the same thing, pick 0. A loosely related page is not "
-            "good enough. Reply as JSON: {\"pick\": <number>, \"reason\": \"<one short sentence>\"}.")
+    lines = "\n".join(f"{i}. {c['path']} ({c['title']}){' [section page]' if c.get('hub') else ''}"
+                      for i, c in enumerate(cands, 1))
+    return (f"A request for {site}{path} returned 404 Not Found: that page is gone. Candidate live pages on the "
+            f"same site:\n{lines}\n\n"
+            "1. lost_topic: in a few words, what the lost page was most likely about, judging from its URL.\n"
+            "2. verdicts: one per candidate. same_topic = it answers the same question a reader of the lost page "
+            "had. same_area = same product or field, but a different question. different = anything else. A page "
+            "about another product (OpenAI instead of Claude, Ollama instead of Gemini) is never same_topic.\n"
+            "3. pick: the number of the best same_topic candidate, or 0 if there is none. Most lost pages have no "
+            "same_topic candidate, so 0 is a normal answer.\n"
+            "4. reason: one short sentence.\nReply as JSON.")
 
 
-def suggest_redirects(site, paths, live_pages, llm, min_sim, limit):
-    """EmbeddingGemma shortlists 3 live pages per lost path; Gemma picks one or none."""
+def is_hub(path, hub_prefix):
+    """A section page such as /topics/python/ (the bare /topics/ index is not one)."""
+    return bool(hub_prefix) and path.startswith(hub_prefix) and path != hub_prefix
+
+
+def decide(ans, cands, hub_prefix):
+    """Turn the model's answer into an outcome. Only an article the model itself labelled same_topic becomes a
+    redirect; a section page labelled same_topic or same_area is at most a weaker hub suggestion; else none."""
+    verdict = {}
+    for v in ans.get("verdicts") or []:
+        if isinstance(v, dict) and v.get("match") in VERDICTS:
+            try:
+                verdict[int(v.get("n"))] = v["match"]
+            except (TypeError, ValueError):
+                pass
+    try:
+        pick = int(ans.get("pick", 0))
+    except (TypeError, ValueError):
+        pick = 0
+    if 1 <= pick <= len(cands) and verdict.get(pick) == "same_topic":
+        c = cands[pick - 1]
+        return ("hub" if is_hub(c["path"], hub_prefix) else "redirect"), c
+    for i, c in enumerate(cands, 1):
+        if is_hub(c["path"], hub_prefix) and verdict.get(i) in ("same_topic", "same_area"):
+            return "hub", c
+    return "none", None
+
+
+def suggest_redirects(site, paths, live_pages, llm, min_sim, limit, think=False, hub_prefix="/topics/"):
+    """EmbeddingGemma shortlists the 3 closest live pages plus the closest section page; Gemma labels each one and
+    picks a same-topic page or none."""
     out = []
     if not paths:
         return out
     page_vecs = llm.embed([f"{p['title']} ({slug_words(p['path'])})" for p in live_pages])
     lost_vecs = llm.embed([slug_words(p) for p in paths[:limit]])
     for path, vec in zip(paths[:limit], lost_vecs):
-        scored = sorted(((cosine(vec, pv), p) for pv, p in zip(page_vecs, live_pages)), key=lambda x: -x[0])[:3]
-        cands = [dict(p, sim=round(s, 3)) for s, p in scored if s >= min_sim]
+        scored = sorted(((cosine(vec, pv), p) for pv, p in zip(page_vecs, live_pages)
+                         if p["path"] != hub_prefix), key=lambda x: -x[0])      # never the bare /topics/ index
+        cands = [dict(p, sim=round(s, 3)) for s, p in scored[:3] if s >= min_sim]
+        hub = next(((s, p) for s, p in scored if is_hub(p["path"], hub_prefix)), None)
+        if hub and hub[0] >= min_sim * 0.8 and hub[1]["path"] not in {c["path"] for c in cands}:
+            cands.append(dict(hub[1], sim=round(hub[0], 3)))
+        for c in cands:
+            c["hub"] = is_hub(c["path"], hub_prefix)
         if not cands:
-            out.append({"path": path, "target": None, "reason": "no live page is close enough", "candidates": []})
+            out.append({"path": path, "kind": "none", "target": None, "sim": None,
+                        "reason": "no live page is close enough", "candidates": []})
             continue
         try:
-            ans = llm.chat_json(judge_prompt(site, path, cands), JUDGE_SCHEMA)
-            pick = int(ans.get("pick", 0))
+            ans = llm.chat_json(judge_prompt(site, path, cands), JUDGE_SCHEMA, think=think)
         except (ValueError, KeyError, TypeError, OSError) as e:
-            ans, pick = {"reason": f"model error: {e}"}, 0
-        target = cands[pick - 1] if 1 <= pick <= len(cands) else None
-        out.append({"path": path, "target": target["path"] if target else None,
+            ans = {"reason": f"model error: {e}"}
+        kind, target = decide(ans, cands, hub_prefix)
+        out.append({"path": path, "kind": kind, "target": target["path"] if target else None,
                     "sim": target["sim"] if target else None, "reason": str(ans.get("reason", ""))[:240],
+                    "lost_topic": str(ans.get("lost_topic", ""))[:120],
                     "candidates": [{"path": c["path"], "sim": c["sim"]} for c in cands]})
     return out
 
@@ -273,8 +352,9 @@ def morning_brief(facts, llm):
     template = (f"Verified Googlebot fetched {facts['sitemap_pages_fetched_by_verified_googlebot']} sitemap pages in "
                 f"the last {facts['hours_covered']} hours, and {facts['sitemap_pages_never_fetched_by_googlebot']} of "
                 f"{facts['sitemap_pages_total']} have not been fetched since {facts['watching_since']}. "
-                f"{facts['lost_page_urls']} lost URLs returned 404, {facts['redirects_waiting_for_approval']} redirects "
-                f"are waiting for your approval, and {facts['attack_probe_404s']} 404s were attack probes.")
+                f"{facts['lost_page_urls']} lost URLs returned 404: {facts['redirects_waiting_for_approval']} have a "
+                f"same-topic redirect waiting for your approval and {facts['lost_urls_worth_restoring']} look worth "
+                f"restoring; {facts['attack_probe_404s']} 404s were attack probes.")
     if llm is None:
         return template, "template"
     prompt = ("Write a two-sentence morning note for a busy website owner from the facts below. Sentence one: how "
@@ -293,7 +373,8 @@ def morning_brief(facts, llm):
 
 
 def caddy_line(s):
-    return f"redir {s['path']} {s['target']} permanent    # {s['reason']}"
+    line = f"redir {s['path']} {s['target']} permanent    # {s['reason']}"
+    return line if s.get("kind") == "redirect" else "# weaker, section page only: " + line
 
 
 def run(cfg, now=None, llm=None, resolver=socket, dry=False):
@@ -302,7 +383,7 @@ def run(cfg, now=None, llm=None, resolver=socket, dry=False):
     (out / "reports").mkdir(parents=True, exist_ok=True)
     state = load_state(out)
     since = now - cfg["window_hours"] * 3600
-    rows = read_log(cfg["log_glob"], since, now)
+    rows = read_log(cfg["log_glob"], since, now, cfg["client_ip_header"], cfg["trusted_proxies"])
     # "watching since" = the oldest log line the sloth has ever seen, not the start of its first window
     state["since"] = state["since"] or (min(r["ts"] for r in rows) if rows else now)
     sitemap = sitemap_paths(cfg["sitemap"])
@@ -342,19 +423,23 @@ def run(cfg, now=None, llm=None, resolver=socket, dry=False):
             if claimed_bot(r["ua"])[0]:
                 e["bots"] += 1
     ranked = sorted(lost, key=lambda p: -lost[p]["hits"])
-    suggestions = [{"path": p, "target": p + "/", "reason": "same page without the trailing slash", "sim": None,
-                    "candidates": []} for p in ranked if lost[p]["kind"] == "slash"]
+    suggestions = [{"path": p, "kind": "redirect", "target": p + "/", "reason": "same page without the trailing slash",
+                    "sim": None, "candidates": []} for p in ranked if lost[p]["kind"] == "slash"]
     page_paths = [p for p in ranked if lost[p]["kind"] == "page"]
     if page_paths and llm is not None:
         live_pages = [{"path": p, "title": page_title(cfg.get("site_root"), p)} for p in sitemap if p != "/"]
         suggestions += suggest_redirects(cfg["site"], page_paths, live_pages, llm, cfg["min_similarity"],
-                                         cfg["max_404_paths"])
+                                         cfg["max_404_paths"], think=cfg["judge_think"], hub_prefix=cfg["hub_prefix"])
+    # requested again and again, and nothing on the site answers the same question: maybe bring the page back
+    restore = [s for s in suggestions if s["kind"] != "redirect" and lost[s["path"]]["kind"] == "page"
+               and lost[s["path"]]["hits"] >= cfg["restore_min_hits"]]
     for p in ranked:
         s = state["seen_404"].setdefault(p, {"first": now})
         s["last"], s["hits"] = now, s.get("hits", 0) + lost[p]["hits"]
 
     # 3. two lines
-    todo = [s for s in suggestions if s["target"]]
+    todo = [s for s in suggestions if s["kind"] == "redirect"]
+    weaker = [s for s in suggestions if s["kind"] == "hub"]
     facts = {   # key names are written for the model, which reads this dict as JSON
         "hours_covered": cfg["window_hours"], "requests_read": len(rows),
         "sitemap_pages_fetched_by_verified_googlebot": len(verified_pages), "sitemap_pages_total": len(sitemap),
@@ -362,22 +447,25 @@ def run(cfg, now=None, llm=None, resolver=socket, dry=False):
         "watching_since": dt.datetime.fromtimestamp(state["since"], dt.timezone.utc).strftime("%Y-%m-%d"),
         "requests_from_fake_crawlers": sum(fakes.values()), "not_found_responses": sum(buckets.values()),
         "attack_probe_404s": buckets["probe"], "lost_page_urls": len(lost),
-        "redirects_waiting_for_approval": len(todo),
+        "redirects_waiting_for_approval": len(todo), "weaker_section_page_suggestions": len(weaker),
+        "lost_urls_worth_restoring": len(restore),
     }
     brief, brief_src = morning_brief(facts, llm)
     day = dt.datetime.fromtimestamp(now, dt.timezone.utc).strftime("%Y-%m-%d")
-    report = render(cfg, day, facts, brief, brief_src, claims, verified_pages, never, buckets, lost, suggestions, llm)
+    report = render(cfg, day, facts, brief, brief_src, claims, verified_pages, never, buckets, lost, suggestions,
+                    restore, llm)
     if not dry:
         (out / "reports" / f"{day}.md").write_text(report)
         (out / "reports" / f"{day}.caddy").write_text(
             "# Suggested by sloth. Nothing here is applied automatically: review, then paste into your site block.\n"
-            + "".join(caddy_line(s) + "\n" for s in todo))
+            + "".join(caddy_line(s) + "\n" for s in todo + weaker))
         (out / "latest.md").write_text(report)
         save_state(out, state)
-    return {"facts": facts, "brief": brief, "brief_source": brief_src, "suggestions": suggestions, "report": report}
+    return {"facts": facts, "brief": brief, "brief_source": brief_src, "suggestions": suggestions,
+            "restore": restore, "report": report}
 
 
-def render(cfg, day, facts, brief, brief_src, claims, verified_pages, never, buckets, lost, suggestions, llm):
+def render(cfg, day, facts, brief, brief_src, claims, verified_pages, never, buckets, lost, suggestions, restore, llm):
     L = [f"# sloth night shift: {day}", "", f"> {brief}", "", f"*Brief written by: {brief_src}.*", ""]
     L += ["## Did Google come by?", ""]
     for name, (ok, bad) in sorted(claims.items()):
@@ -394,15 +482,21 @@ def render(cfg, day, facts, brief, brief_src, claims, verified_pages, never, buc
     L += ["", "## What broke?", "",
           f"404 responses: {facts['not_found_responses']} (probes {buckets['probe']}, missing assets {buckets['asset']}, "
           f"lost pages {buckets['page']}, missing trailing slash {buckets['slash']}, other {buckets['other']}).", ""]
+    label = {"redirect": "same topic", "hub": "section page (weaker)", "none": "none"}
     if suggestions:
-        L += ["| Lost URL | Hits | Suggested redirect | Why |", "|---|---|---|---|"]
+        L += ["| Lost URL | Hits | Outcome | Target | Why |", "|---|---|---|---|---|"]
         for s in suggestions:
             hits = lost.get(s["path"], {}).get("hits", "")
-            tgt = f"`{s['target']}`" + (f" (similarity {s['sim']})" if s.get("sim") else "") if s["target"] else "none"
-            L.append(f"| `{s['path']}` | {hits} | {tgt} | {s['reason'].replace('|', '/')} |")
-        L += ["", "Ready-to-review Caddy lines are in the matching `.caddy` file. Nothing was applied.", ""]
+            tgt = f"`{s['target']}` ({s['sim']})" if s["target"] and s.get("sim") else (f"`{s['target']}`" if s["target"] else "")
+            L.append(f"| `{s['path']}` | {hits} | {label[s['kind']]} | {tgt} | {s['reason'].replace('|', '/')} |")
+        L += ["", "Same-topic redirects are ready to review in the matching `.caddy` file; section-page ones are there "
+              "too, commented out. Nothing was applied.", ""]
     else:
         L.append("No lost pages in this window.")
+    if restore:
+        L += ["", "### Worth restoring", "",
+              f"Requested at least {cfg['restore_min_hits']} times, and no live page answers the same question:", ""]
+        L += [f"- `{s['path']}` ({lost[s['path']]['hits']} hits)" for s in restore]
     L += ["", "## How the sloth worked", "",
           f"- Requests read: {facts['requests_read']} (last {facts['hours_covered']} h).",
           f"- Models: {cfg['chat_model']} and {cfg['embed_model']} on {cfg['ollama']} "
@@ -415,12 +509,14 @@ def main(argv=None):
     ap.add_argument("-c", "--config", default=os.environ.get("SLOTH_CONFIG", "/etc/sloth/sloth.toml"))
     ap.add_argument("--no-model", action="store_true", help="skip the models (template brief, no redirect picks)")
     ap.add_argument("--dry", action="store_true", help="print the report, write nothing")
+    ap.add_argument("--until", help="replay the 24 h ending at this UTC time, e.g. 2026-10-24T22:32:44Z")
     ap.add_argument("--version", action="version", version=__version__)
     a = ap.parse_args(argv)
     cfg = load_config(a.config if Path(a.config).exists() else None)
     llm = None if a.no_model else Ollama(cfg["ollama"], cfg["chat_model"], cfg["embed_model"])
     t0 = time.time()
-    res = run(cfg, llm=llm, dry=a.dry)
+    now = dt.datetime.fromisoformat(a.until.replace("Z", "+00:00")).timestamp() if a.until else None
+    res = run(cfg, now=now, llm=llm, dry=a.dry)
     print(res["report"] if a.dry else res["brief"])
     print(f"done in {time.time() - t0:.0f} s", file=sys.stderr)
 

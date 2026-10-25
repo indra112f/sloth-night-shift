@@ -1,0 +1,14 @@
+# Suggested by sloth. Nothing here is applied automatically: review, then paste into your site block.
+redir /jsondecodeerror-expecting-value/ /python-json-examples/ permanent    # The Python JSON examples page is the most likely to cover JSON decoding/loading issues.
+redir /openai-prompt-caching-pricing/ /claude-prompt-caching/ permanent    # The most relevant live page is about Claude prompt caching, which is the closest related service.
+redir /how-to-check-claude-code-usage/ /claude-code-usage-limit-reset/ permanent    # The candidate page directly addresses Claude code usage limits and output formats.
+redir /ollama-web-search-api/ /javascript-fetch-api/ permanent    # The candidate '/topics/web/' is the most relevant as it deals with web and SEO guides.
+redir /mcp-server-python/ /claude-code-mcp/ permanent    # The candidate page '/claude-code-mcp/' is the most relevant as it deals with setting up an MCP server.
+# weaker, section page only: redir /claude-code-skills/ /topics/claude-code/ permanent    # The /topics/claude-code/ page is the most likely guide section related to Claude code.
+# weaker, section page only: redir /claude-extended-thinking-budget/ /topics/claude-code/ permanent    # The candidate page is about Claude code guides, which is the closest related topic.
+# weaker, section page only: redir /claude-api-python/ /topics/claude-code/ permanent    # The most relevant candidate is the page specifically about Claude code guides.
+# weaker, section page only: redir /content-security-policy-inline-style-blocked/ /topics/ui-ux/ permanent    # The candidate page is a guide on CSS, accessibility, and motion, which is a related technical topic.
+# weaker, section page only: redir /claude-code-context-window-full/ /topics/claude-code/ permanent    # The candidate page '/topics/claude-code/' is the most general guide related to Claude code.
+# weaker, section page only: redir /gemini-3-8-live-api/ /topics/ai-tools/ permanent    # The candidate page about Gemini 4 API access is the most relevant to accessing a Gemini API.
+# weaker, section page only: redir /enable-copilot-enterprise-model-policy/ /topics/prompts/ permanent    # The URL strongly suggests a guide on configuring or enabling a specific enterprise feature for a product.
+# weaker, section page only: redir /claude-code-plan-mode/ /topics/claude-code/ permanent    # The candidate pages cover different aspects of Claude code functionality, making the first one the most likely general guide.
